@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7137059159dc43b3a62d3cd3469ed252" Name="Diagram1">
+        <EntityTypeShape EntityType="dbMRMModel.AssignmentMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.BatchMaster" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.BatchReportMaster" Width="1.5" PointX="7.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.CandBatchMaster" Width="1.5" PointX="10.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.CandidateMaster" Width="1.5" PointX="8.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.CandSupportMaster" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.GlobalNotesMaster" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.JobDiscussMaster" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.MeetingMaster" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.ResumeUnderStandingMaster" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.RoleMaster" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.ScreeningMaster" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.StatusMaster" Width="1.5" PointX="6" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.TechMaster" Width="1.5" PointX="6" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMRMModel.UserMaster" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="dbMRMModel.FK__BatchMast__Batch__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMRMModel.FK__BatchRepo__refBa__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMRMModel.FK__CandBatch__refBa__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMRMModel.FK__CandBatch__refCa__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMRMModel.FK__Candidate__CandS__1CF15040" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMRMModel.FK__Candidate__refTe__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMRMModel.FK__GlobalNot__Writt__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMRMModel.FK__MeetingMa__Arran__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMRMModel.FK__UserMaste__UserR__15502E78" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

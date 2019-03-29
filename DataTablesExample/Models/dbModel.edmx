@@ -1,0 +1,883 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbMRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssignmentMaster">
+          <Key>
+            <PropertyRef Name="AssignId" />
+          </Key>
+          <Property Name="AssignId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssignmentDesc" Type="varchar(max)" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="AssignDate" Type="date" Nullable="false" />
+          <Property Name="CandNames" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BatchMaster">
+          <Key>
+            <PropertyRef Name="BatchId" />
+          </Key>
+          <Property Name="BatchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BatchTitle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BatchStartDate" Type="date" Nullable="false" />
+          <Property Name="BatchEndDate" Type="date" Nullable="false" />
+          <Property Name="IsBatchRunning" Type="bit" Nullable="false" />
+          <Property Name="BatchTakenBy" Type="int" />
+        </EntityType>
+        <EntityType Name="BatchReportMaster">
+          <Key>
+            <PropertyRef Name="BRId" />
+          </Key>
+          <Property Name="BRId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BRDate" Type="date" Nullable="false" />
+          <Property Name="BRTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TopicName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TopicDescription" Type="varchar(max)" Nullable="false" />
+          <Property Name="SessionDetails" Type="varchar(max)" Nullable="false" />
+          <Property Name="IsTaken" Type="bit" Nullable="false" />
+          <Property Name="refBatchId" Type="int" />
+        </EntityType>
+        <EntityType Name="CandBatchMaster">
+          <Key>
+            <PropertyRef Name="CandBatchId" />
+          </Key>
+          <Property Name="CandBatchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refBatchId" Type="int" />
+          <Property Name="refCandId" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="addDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CandidateMaster">
+          <Key>
+            <PropertyRef Name="CandId" />
+          </Key>
+          <Property Name="CandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandFullName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CandMobileNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CandEmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CandStatus" Type="int" />
+          <Property Name="IsCandEnabled" Type="bit" Nullable="false" />
+          <Property Name="refTechId" Type="int" />
+          <Property Name="remarks" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="CandSupportMaster">
+          <Key>
+            <PropertyRef Name="CSId" />
+          </Key>
+          <Property Name="CSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CSTopic" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CSGivenBy" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CSDate" Type="date" Nullable="false" />
+          <Property Name="CSTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="IsCSIncentiveCal" Type="bit" Nullable="false" />
+          <Property Name="CSRemarks" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="GlobalNotesMaster">
+          <Key>
+            <PropertyRef Name="GlobalNoteId" />
+          </Key>
+          <Property Name="GlobalNoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Notes" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DateOfNotes" Type="date" Nullable="false" />
+          <Property Name="TimeOfNotes" Type="time" Precision="7" Nullable="false" />
+          <Property Name="WrittenBy" Type="int" />
+          <Property Name="MakeHidden" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JobDiscussMaster">
+          <Key>
+            <PropertyRef Name="JDId" />
+          </Key>
+          <Property Name="JDId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JDDescription" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="CandName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="JDDate" Type="date" Nullable="false" />
+          <Property Name="JDTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="AssignedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsJDIncentiveCal" Type="bit" Nullable="false" />
+          <Property Name="JDRemarks" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MeetingMaster">
+          <Key>
+            <PropertyRef Name="MeetingId" />
+          </Key>
+          <Property Name="MeetingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MeetingDescription" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Conclusion" Type="varchar(max)" />
+          <Property Name="MeetDate" Type="date" Nullable="false" />
+          <Property Name="MeetTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="ArrangedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="ResumeUnderStandingMaster">
+          <Key>
+            <PropertyRef Name="RUId" />
+          </Key>
+          <Property Name="RUId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RUDate" Type="date" Nullable="false" />
+          <Property Name="RUTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="CandName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ResumeTitle" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RURemarks" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsRUIncentiveCal" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleDescription" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IsRoleEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScreeningMaster">
+          <Key>
+            <PropertyRef Name="ScreeningId" />
+          </Key>
+          <Property Name="ScreeningId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScreeningDate" Type="date" Nullable="false" />
+          <Property Name="ScreeningTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="CandName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Technology" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AssignedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SCRemarks" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusMaster">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusDescription" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TechMaster">
+          <Key>
+            <PropertyRef Name="TechId" />
+          </Key>
+          <Property Name="TechId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechDescription" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserEmailId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserRole" Type="int" />
+          <Property Name="Location" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsUserEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BatchMast__Batch__25869641">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BatchMaster">
+              <PropertyRef Name="BatchTakenBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BatchRepo__refBa__2C3393D0">
+          <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="0..1" />
+          <End Role="BatchReportMaster" Type="Self.BatchReportMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BatchMaster">
+              <PropertyRef Name="BatchId" />
+            </Principal>
+            <Dependent Role="BatchReportMaster">
+              <PropertyRef Name="refBatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CandBatch__refBa__286302EC">
+          <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="0..1" />
+          <End Role="CandBatchMaster" Type="Self.CandBatchMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BatchMaster">
+              <PropertyRef Name="BatchId" />
+            </Principal>
+            <Dependent Role="CandBatchMaster">
+              <PropertyRef Name="refBatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CandBatch__refCa__29572725">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="0..1" />
+          <End Role="CandBatchMaster" Type="Self.CandBatchMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandId" />
+            </Principal>
+            <Dependent Role="CandBatchMaster">
+              <PropertyRef Name="refCandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__CandS__1CF15040">
+          <End Role="StatusMaster" Type="Self.StatusMaster" Multiplicity="0..1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusMaster">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="CandStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__refTe__1ED998B2">
+          <End Role="TechMaster" Type="Self.TechMaster" Multiplicity="0..1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechMaster">
+              <PropertyRef Name="TechId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="refTechId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GlobalNot__Writt__21B6055D">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="GlobalNotesMaster" Type="Self.GlobalNotesMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="GlobalNotesMaster">
+              <PropertyRef Name="WrittenBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MeetingMa__Arran__36B12243">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="MeetingMaster" Type="Self.MeetingMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MeetingMaster">
+              <PropertyRef Name="ArrangedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserMaste__UserR__15502E78">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1" />
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbMRMModelStoreContainer">
+          <EntitySet Name="AssignmentMaster" EntityType="Self.AssignmentMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BatchMaster" EntityType="Self.BatchMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BatchReportMaster" EntityType="Self.BatchReportMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandBatchMaster" EntityType="Self.CandBatchMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateMaster" EntityType="Self.CandidateMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandSupportMaster" EntityType="Self.CandSupportMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GlobalNotesMaster" EntityType="Self.GlobalNotesMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobDiscussMaster" EntityType="Self.JobDiscussMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeetingMaster" EntityType="Self.MeetingMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResumeUnderStandingMaster" EntityType="Self.ResumeUnderStandingMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMaster" EntityType="Self.RoleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScreeningMaster" EntityType="Self.ScreeningMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusMaster" EntityType="Self.StatusMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TechMaster" EntityType="Self.TechMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BatchMast__Batch__25869641" Association="Self.FK__BatchMast__Batch__25869641">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="BatchMaster" EntitySet="BatchMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BatchRepo__refBa__2C3393D0" Association="Self.FK__BatchRepo__refBa__2C3393D0">
+            <End Role="BatchMaster" EntitySet="BatchMaster" />
+            <End Role="BatchReportMaster" EntitySet="BatchReportMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CandBatch__refBa__286302EC" Association="Self.FK__CandBatch__refBa__286302EC">
+            <End Role="BatchMaster" EntitySet="BatchMaster" />
+            <End Role="CandBatchMaster" EntitySet="CandBatchMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CandBatch__refCa__29572725" Association="Self.FK__CandBatch__refCa__29572725">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="CandBatchMaster" EntitySet="CandBatchMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__CandS__1CF15040" Association="Self.FK__Candidate__CandS__1CF15040">
+            <End Role="StatusMaster" EntitySet="StatusMaster" />
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__refTe__1ED998B2" Association="Self.FK__Candidate__refTe__1ED998B2">
+            <End Role="TechMaster" EntitySet="TechMaster" />
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GlobalNot__Writt__21B6055D" Association="Self.FK__GlobalNot__Writt__21B6055D">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="GlobalNotesMaster" EntitySet="GlobalNotesMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MeetingMa__Arran__36B12243" Association="Self.FK__MeetingMa__Arran__36B12243">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="MeetingMaster" EntitySet="MeetingMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserMaste__UserR__15502E78" Association="Self.FK__UserMaste__UserR__15502E78">
+            <End Role="RoleMaster" EntitySet="RoleMaster" />
+            <End Role="UserMaster" EntitySet="UserMaster" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbMRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AssignmentMaster">
+          <Key>
+            <PropertyRef Name="AssignId" />
+          </Key>
+          <Property Name="AssignId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssignmentDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AssignDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CandNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BatchMaster">
+          <Key>
+            <PropertyRef Name="BatchId" />
+          </Key>
+          <Property Name="BatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BatchTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BatchStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BatchEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsBatchRunning" Type="Boolean" Nullable="false" />
+          <Property Name="BatchTakenBy" Type="Int32" />
+          <NavigationProperty Name="UserMaster" Relationship="Self.FK__BatchMast__Batch__25869641" FromRole="BatchMaster" ToRole="UserMaster" />
+          <NavigationProperty Name="BatchReportMasters" Relationship="Self.FK__BatchRepo__refBa__2C3393D0" FromRole="BatchMaster" ToRole="BatchReportMaster" />
+          <NavigationProperty Name="CandBatchMasters" Relationship="Self.FK__CandBatch__refBa__286302EC" FromRole="BatchMaster" ToRole="CandBatchMaster" />
+        </EntityType>
+        <EntityType Name="BatchReportMaster">
+          <Key>
+            <PropertyRef Name="BRId" />
+          </Key>
+          <Property Name="BRId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BRDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BRTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TopicName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TopicDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SessionDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsTaken" Type="Boolean" Nullable="false" />
+          <Property Name="refBatchId" Type="Int32" />
+          <NavigationProperty Name="BatchMaster" Relationship="Self.FK__BatchRepo__refBa__2C3393D0" FromRole="BatchReportMaster" ToRole="BatchMaster" />
+        </EntityType>
+        <EntityType Name="CandBatchMaster">
+          <Key>
+            <PropertyRef Name="CandBatchId" />
+          </Key>
+          <Property Name="CandBatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refBatchId" Type="Int32" />
+          <Property Name="refCandId" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="addDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="BatchMaster" Relationship="Self.FK__CandBatch__refBa__286302EC" FromRole="CandBatchMaster" ToRole="BatchMaster" />
+          <NavigationProperty Name="CandidateMaster" Relationship="Self.FK__CandBatch__refCa__29572725" FromRole="CandBatchMaster" ToRole="CandidateMaster" />
+        </EntityType>
+        <EntityType Name="CandidateMaster">
+          <Key>
+            <PropertyRef Name="CandId" />
+          </Key>
+          <Property Name="CandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandFullName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandEmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandStatus" Type="Int32" />
+          <Property Name="IsCandEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="refTechId" Type="Int32" />
+          <Property Name="remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CandBatchMasters" Relationship="Self.FK__CandBatch__refCa__29572725" FromRole="CandidateMaster" ToRole="CandBatchMaster" />
+          <NavigationProperty Name="StatusMaster" Relationship="Self.FK__Candidate__CandS__1CF15040" FromRole="CandidateMaster" ToRole="StatusMaster" />
+          <NavigationProperty Name="TechMaster" Relationship="Self.FK__Candidate__refTe__1ED998B2" FromRole="CandidateMaster" ToRole="TechMaster" />
+        </EntityType>
+        <EntityType Name="CandSupportMaster">
+          <Key>
+            <PropertyRef Name="CSId" />
+          </Key>
+          <Property Name="CSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CSTopic" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CSGivenBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CSDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CSTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="IsCSIncentiveCal" Type="Boolean" Nullable="false" />
+          <Property Name="CSRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="GlobalNotesMaster">
+          <Key>
+            <PropertyRef Name="GlobalNoteId" />
+          </Key>
+          <Property Name="GlobalNoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfNotes" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TimeOfNotes" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="WrittenBy" Type="Int32" />
+          <Property Name="MakeHidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserMaster" Relationship="Self.FK__GlobalNot__Writt__21B6055D" FromRole="GlobalNotesMaster" ToRole="UserMaster" />
+        </EntityType>
+        <EntityType Name="JobDiscussMaster">
+          <Key>
+            <PropertyRef Name="JDId" />
+          </Key>
+          <Property Name="JDId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JDDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JDDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="JDTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="AssignedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsJDIncentiveCal" Type="Boolean" Nullable="false" />
+          <Property Name="JDRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MeetingMaster">
+          <Key>
+            <PropertyRef Name="MeetingId" />
+          </Key>
+          <Property Name="MeetingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeetingDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Conclusion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MeetDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MeetTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="ArrangedBy" Type="Int32" />
+          <NavigationProperty Name="UserMaster" Relationship="Self.FK__MeetingMa__Arran__36B12243" FromRole="MeetingMaster" ToRole="UserMaster" />
+        </EntityType>
+        <EntityType Name="ResumeUnderStandingMaster">
+          <Key>
+            <PropertyRef Name="RUId" />
+          </Key>
+          <Property Name="RUId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RUDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RUTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="CandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ResumeTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RURemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsRUIncentiveCal" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleDescription" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsRoleEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserMasters" Relationship="Self.FK__UserMaste__UserR__15502E78" FromRole="RoleMaster" ToRole="UserMaster" />
+        </EntityType>
+        <EntityType Name="ScreeningMaster">
+          <Key>
+            <PropertyRef Name="ScreeningId" />
+          </Key>
+          <Property Name="ScreeningId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScreeningDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ScreeningTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="CandName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Technology" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AssignedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SCRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusMaster">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CandidateMasters" Relationship="Self.FK__Candidate__CandS__1CF15040" FromRole="StatusMaster" ToRole="CandidateMaster" />
+        </EntityType>
+        <EntityType Name="TechMaster">
+          <Key>
+            <PropertyRef Name="TechId" />
+          </Key>
+          <Property Name="TechId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CandidateMasters" Relationship="Self.FK__Candidate__refTe__1ED998B2" FromRole="TechMaster" ToRole="CandidateMaster" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserEmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserRole" Type="Int32" />
+          <Property Name="Location" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsUserEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BatchMasters" Relationship="Self.FK__BatchMast__Batch__25869641" FromRole="UserMaster" ToRole="BatchMaster" />
+          <NavigationProperty Name="GlobalNotesMasters" Relationship="Self.FK__GlobalNot__Writt__21B6055D" FromRole="UserMaster" ToRole="GlobalNotesMaster" />
+          <NavigationProperty Name="MeetingMasters" Relationship="Self.FK__MeetingMa__Arran__36B12243" FromRole="UserMaster" ToRole="MeetingMaster" />
+          <NavigationProperty Name="RoleMaster" Relationship="Self.FK__UserMaste__UserR__15502E78" FromRole="UserMaster" ToRole="RoleMaster" />
+        </EntityType>
+        <Association Name="FK__BatchMast__Batch__25869641">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BatchMaster">
+              <PropertyRef Name="BatchTakenBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BatchRepo__refBa__2C3393D0">
+          <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="0..1" />
+          <End Role="BatchReportMaster" Type="Self.BatchReportMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BatchMaster">
+              <PropertyRef Name="BatchId" />
+            </Principal>
+            <Dependent Role="BatchReportMaster">
+              <PropertyRef Name="refBatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CandBatch__refBa__286302EC">
+          <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="0..1" />
+          <End Role="CandBatchMaster" Type="Self.CandBatchMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BatchMaster">
+              <PropertyRef Name="BatchId" />
+            </Principal>
+            <Dependent Role="CandBatchMaster">
+              <PropertyRef Name="refBatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CandBatch__refCa__29572725">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="0..1" />
+          <End Role="CandBatchMaster" Type="Self.CandBatchMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandId" />
+            </Principal>
+            <Dependent Role="CandBatchMaster">
+              <PropertyRef Name="refCandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__CandS__1CF15040">
+          <End Role="StatusMaster" Type="Self.StatusMaster" Multiplicity="0..1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusMaster">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="CandStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__refTe__1ED998B2">
+          <End Role="TechMaster" Type="Self.TechMaster" Multiplicity="0..1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechMaster">
+              <PropertyRef Name="TechId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="refTechId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GlobalNot__Writt__21B6055D">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="GlobalNotesMaster" Type="Self.GlobalNotesMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="GlobalNotesMaster">
+              <PropertyRef Name="WrittenBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MeetingMa__Arran__36B12243">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="MeetingMaster" Type="Self.MeetingMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MeetingMaster">
+              <PropertyRef Name="ArrangedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserMaste__UserR__15502E78">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1" />
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbMRMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AssignmentMasters" EntityType="Self.AssignmentMaster" />
+          <EntitySet Name="BatchMasters" EntityType="Self.BatchMaster" />
+          <EntitySet Name="BatchReportMasters" EntityType="Self.BatchReportMaster" />
+          <EntitySet Name="CandBatchMasters" EntityType="Self.CandBatchMaster" />
+          <EntitySet Name="CandidateMasters" EntityType="Self.CandidateMaster" />
+          <EntitySet Name="CandSupportMasters" EntityType="Self.CandSupportMaster" />
+          <EntitySet Name="GlobalNotesMasters" EntityType="Self.GlobalNotesMaster" />
+          <EntitySet Name="JobDiscussMasters" EntityType="Self.JobDiscussMaster" />
+          <EntitySet Name="MeetingMasters" EntityType="Self.MeetingMaster" />
+          <EntitySet Name="ResumeUnderStandingMasters" EntityType="Self.ResumeUnderStandingMaster" />
+          <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
+          <EntitySet Name="ScreeningMasters" EntityType="Self.ScreeningMaster" />
+          <EntitySet Name="StatusMasters" EntityType="Self.StatusMaster" />
+          <EntitySet Name="TechMasters" EntityType="Self.TechMaster" />
+          <EntitySet Name="UserMasters" EntityType="Self.UserMaster" />
+          <AssociationSet Name="FK__BatchMast__Batch__25869641" Association="Self.FK__BatchMast__Batch__25869641">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="BatchMaster" EntitySet="BatchMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BatchRepo__refBa__2C3393D0" Association="Self.FK__BatchRepo__refBa__2C3393D0">
+            <End Role="BatchMaster" EntitySet="BatchMasters" />
+            <End Role="BatchReportMaster" EntitySet="BatchReportMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CandBatch__refBa__286302EC" Association="Self.FK__CandBatch__refBa__286302EC">
+            <End Role="BatchMaster" EntitySet="BatchMasters" />
+            <End Role="CandBatchMaster" EntitySet="CandBatchMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CandBatch__refCa__29572725" Association="Self.FK__CandBatch__refCa__29572725">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="CandBatchMaster" EntitySet="CandBatchMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__CandS__1CF15040" Association="Self.FK__Candidate__CandS__1CF15040">
+            <End Role="StatusMaster" EntitySet="StatusMasters" />
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__refTe__1ED998B2" Association="Self.FK__Candidate__refTe__1ED998B2">
+            <End Role="TechMaster" EntitySet="TechMasters" />
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GlobalNot__Writt__21B6055D" Association="Self.FK__GlobalNot__Writt__21B6055D">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="GlobalNotesMaster" EntitySet="GlobalNotesMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MeetingMa__Arran__36B12243" Association="Self.FK__MeetingMa__Arran__36B12243">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="MeetingMaster" EntitySet="MeetingMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserMaste__UserR__15502E78" Association="Self.FK__UserMaste__UserR__15502E78">
+            <End Role="RoleMaster" EntitySet="RoleMasters" />
+            <End Role="UserMaster" EntitySet="UserMasters" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbMRMModelStoreContainer" CdmEntityContainer="dbMRMEntities">
+          <EntitySetMapping Name="AssignmentMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.AssignmentMaster">
+              <MappingFragment StoreEntitySet="AssignmentMaster">
+                <ScalarProperty Name="AssignId" ColumnName="AssignId" />
+                <ScalarProperty Name="AssignmentDesc" ColumnName="AssignmentDesc" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="AssignDate" ColumnName="AssignDate" />
+                <ScalarProperty Name="CandNames" ColumnName="CandNames" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BatchMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.BatchMaster">
+              <MappingFragment StoreEntitySet="BatchMaster">
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="BatchTitle" ColumnName="BatchTitle" />
+                <ScalarProperty Name="BatchStartDate" ColumnName="BatchStartDate" />
+                <ScalarProperty Name="BatchEndDate" ColumnName="BatchEndDate" />
+                <ScalarProperty Name="IsBatchRunning" ColumnName="IsBatchRunning" />
+                <ScalarProperty Name="BatchTakenBy" ColumnName="BatchTakenBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BatchReportMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.BatchReportMaster">
+              <MappingFragment StoreEntitySet="BatchReportMaster">
+                <ScalarProperty Name="BRId" ColumnName="BRId" />
+                <ScalarProperty Name="BRDate" ColumnName="BRDate" />
+                <ScalarProperty Name="BRTime" ColumnName="BRTime" />
+                <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+                <ScalarProperty Name="TopicDescription" ColumnName="TopicDescription" />
+                <ScalarProperty Name="SessionDetails" ColumnName="SessionDetails" />
+                <ScalarProperty Name="IsTaken" ColumnName="IsTaken" />
+                <ScalarProperty Name="refBatchId" ColumnName="refBatchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandBatchMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.CandBatchMaster">
+              <MappingFragment StoreEntitySet="CandBatchMaster">
+                <ScalarProperty Name="CandBatchId" ColumnName="CandBatchId" />
+                <ScalarProperty Name="refBatchId" ColumnName="refBatchId" />
+                <ScalarProperty Name="refCandId" ColumnName="refCandId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="addDate" ColumnName="addDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.CandidateMaster">
+              <MappingFragment StoreEntitySet="CandidateMaster">
+                <ScalarProperty Name="CandId" ColumnName="CandId" />
+                <ScalarProperty Name="CandFullName" ColumnName="CandFullName" />
+                <ScalarProperty Name="CandMobileNumber" ColumnName="CandMobileNumber" />
+                <ScalarProperty Name="CandEmailId" ColumnName="CandEmailId" />
+                <ScalarProperty Name="CandStatus" ColumnName="CandStatus" />
+                <ScalarProperty Name="IsCandEnabled" ColumnName="IsCandEnabled" />
+                <ScalarProperty Name="refTechId" ColumnName="refTechId" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandSupportMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.CandSupportMaster">
+              <MappingFragment StoreEntitySet="CandSupportMaster">
+                <ScalarProperty Name="CSId" ColumnName="CSId" />
+                <ScalarProperty Name="CSTopic" ColumnName="CSTopic" />
+                <ScalarProperty Name="CSGivenBy" ColumnName="CSGivenBy" />
+                <ScalarProperty Name="CSDate" ColumnName="CSDate" />
+                <ScalarProperty Name="CSTime" ColumnName="CSTime" />
+                <ScalarProperty Name="IsCSIncentiveCal" ColumnName="IsCSIncentiveCal" />
+                <ScalarProperty Name="CSRemarks" ColumnName="CSRemarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GlobalNotesMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.GlobalNotesMaster">
+              <MappingFragment StoreEntitySet="GlobalNotesMaster">
+                <ScalarProperty Name="GlobalNoteId" ColumnName="GlobalNoteId" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="DateOfNotes" ColumnName="DateOfNotes" />
+                <ScalarProperty Name="TimeOfNotes" ColumnName="TimeOfNotes" />
+                <ScalarProperty Name="WrittenBy" ColumnName="WrittenBy" />
+                <ScalarProperty Name="MakeHidden" ColumnName="MakeHidden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobDiscussMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.JobDiscussMaster">
+              <MappingFragment StoreEntitySet="JobDiscussMaster">
+                <ScalarProperty Name="JDId" ColumnName="JDId" />
+                <ScalarProperty Name="JDDescription" ColumnName="JDDescription" />
+                <ScalarProperty Name="CandName" ColumnName="CandName" />
+                <ScalarProperty Name="JDDate" ColumnName="JDDate" />
+                <ScalarProperty Name="JDTime" ColumnName="JDTime" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+                <ScalarProperty Name="IsJDIncentiveCal" ColumnName="IsJDIncentiveCal" />
+                <ScalarProperty Name="JDRemarks" ColumnName="JDRemarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeetingMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.MeetingMaster">
+              <MappingFragment StoreEntitySet="MeetingMaster">
+                <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
+                <ScalarProperty Name="MeetingDescription" ColumnName="MeetingDescription" />
+                <ScalarProperty Name="Conclusion" ColumnName="Conclusion" />
+                <ScalarProperty Name="MeetDate" ColumnName="MeetDate" />
+                <ScalarProperty Name="MeetTime" ColumnName="MeetTime" />
+                <ScalarProperty Name="ArrangedBy" ColumnName="ArrangedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResumeUnderStandingMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.ResumeUnderStandingMaster">
+              <MappingFragment StoreEntitySet="ResumeUnderStandingMaster">
+                <ScalarProperty Name="RUId" ColumnName="RUId" />
+                <ScalarProperty Name="RUDate" ColumnName="RUDate" />
+                <ScalarProperty Name="RUTime" ColumnName="RUTime" />
+                <ScalarProperty Name="CandName" ColumnName="CandName" />
+                <ScalarProperty Name="ResumeTitle" ColumnName="ResumeTitle" />
+                <ScalarProperty Name="RURemarks" ColumnName="RURemarks" />
+                <ScalarProperty Name="IsRUIncentiveCal" ColumnName="IsRUIncentiveCal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.RoleMaster">
+              <MappingFragment StoreEntitySet="RoleMaster">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="IsRoleEnabled" ColumnName="IsRoleEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScreeningMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.ScreeningMaster">
+              <MappingFragment StoreEntitySet="ScreeningMaster">
+                <ScalarProperty Name="ScreeningId" ColumnName="ScreeningId" />
+                <ScalarProperty Name="ScreeningDate" ColumnName="ScreeningDate" />
+                <ScalarProperty Name="ScreeningTime" ColumnName="ScreeningTime" />
+                <ScalarProperty Name="CandName" ColumnName="CandName" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+                <ScalarProperty Name="SCRemarks" ColumnName="SCRemarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.StatusMaster">
+              <MappingFragment StoreEntitySet="StatusMaster">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.TechMaster">
+              <MappingFragment StoreEntitySet="TechMaster">
+                <ScalarProperty Name="TechId" ColumnName="TechId" />
+                <ScalarProperty Name="TechDescription" ColumnName="TechDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="dbMRMModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserEmailId" ColumnName="UserEmailId" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="IsUserEnabled" ColumnName="IsUserEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,7 +1,86 @@
 ﻿
 @{
+    /**/
+
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
+<style>
+    .showHide {
+        cursor: pointer;
+    }
+</style>
 
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+<h3>Welcome, @ViewBag.UserName</h3>
+
+
+<div style="padding: 10px; border: 5px solid black; margin-top: 50px" class="container-fluid">
+    <div>
+        <b class="label label-danger" style="padding: 8.5px">Click to Show or Hide Column:</b>
+        <div class="btn-group btn-group-sm">
+            <a class="showHide btn btn-primary" data-columnindex="0">TechId</a>
+            <a class="showHide btn btn-primary" data-columnindex="1">TechDescription</a>
+
+        </div>
+    </div>
+    <br />
+    <table id="studentTable" class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>TechId</th>
+                <th>TechDescription</th>
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>TechId</th>
+                <th>TechDescription</th>
+
+
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    function loadData() {
+         $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "@Url.Action("GetData", "DisplayData")",
+             success: function (data) {
+                 var datatableVariable = $('#studentTable').DataTable({
+                    data: data,
+                    columns: [
+                        { 'data': 'TechId' },
+                        { 'data': 'TechDescription' }
+                    ]
+                });
+                $('#studentTable tfoot th').each(function () {
+                    var placeHolderTitle = $('#studentTable thead th').eq($(this).index()).text();
+                    $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');
+                });
+                datatableVariable.columns().every(function () {
+                    var column = this;
+                    $(this.footer()).find('input').on('keyup change', function () {
+                        column.search(this.value).draw();
+                    });
+                });
+                $('.showHide').on('click', function () {
+                    var tableColumn = datatableVariable.column($(this).attr('data-columnindex'));
+                    tableColumn.visible(!tableColumn.visible());
+                });
+            }
+        });
+
+    }
+    loadData();
+</script> 
